@@ -1,0 +1,154 @@
+Items to Check in W2_con before loop testing
+
+Control File Adjustments
+1) Dialogue window closing
+  CLOSEC == ON
+
+2) Dates Range for model
+	TIME CON	TMSTRT	 TMEND	YEAR
+	These are computed from formula in Column A-->	1.000	365	2002
+	
+	Check Dates on outputs also!!!
+
+3) Turning on Fish Habitat Analysis
+	HABTATC
+	ON      
+	
+	CHECK habitat.npt file for spp included!!!
+	NAMES OF FISH, TEMP-low, TEMP-high, DO limits [DO limits are ignored if no water quality constituents]
+  RainbowTrout,0.0,18.0,5.0
+  LargemouthBass,10.0,30.0,5.0
+
+4) Turn on Profile Output
+  ON  PRFC- Specifies if information is written to the profile file, ON or OFF
+  1   NPRF- # of profile dates
+  1   NIPRF- # of segments to output
+  1.5 PRF DATE- PRFD(NPRF) output dates in Julian days
+  1   PRF FREQ- PRFF(NPRF) frequency of output, days
+  -1  PRF SEG- IPRF(NIPRF) segment number
+
+5) Turn on SPR Spreadsheet output
+	ON  SPRC-	ON      
+	1   NSPR (# of dates)-	1
+  2   NISPR (# of segments)-	2
+	1   SPR DATE- SPRD(NSPR)  - starting date of output in Julian days
+  0.2 SPR FREQ- SPRF(NSPR) - output frequency- days
+  #outflow   #center    SPR SEG- ISPR(NISPR) - segment # of spreadsheet output
+
+6) Turn on W2L connection
+	DSI W2Linkage File for W2Post (used to be called VPL PLOT)	W2L
+	ON   VPLC- ON or OFF Specifies if information is written to the W2 Linkage file, ON or OFF	ON      
+	1    NVPL- # of dates	1
+	1    VPL DATE- VPLD(NVPL)- starting date of output in Julian days	1
+	0.2  VPL FREQ- VPLF(NVPL)- output frequency- days	0.2
+	
+	V4.22: 
+	"VPL FILE..................................VPLFN.................................
+   WB 1    w2p.w2l"
+
+7)TSR PLOT- time series plot output	TSR
+  ON    TSRC- time series ON or OFF	ON      
+  1     NTSR- # of time series dates	1
+  2     NITSR- # of locations for the time series output	4
+  tsr.csv TSR FILE TSRFN time series output file name prefix and suffix	tsr.csv                                                                 
+  1     TSR DATE- TSRD(NTSR)- start date of output in Julian days	1
+  0.2   TSR FREQ- TSRF(NTSR)- frequency of output in days	0.1
+  #outflow   #center    TSR SEG- ITSR(NITSR)- segment number of time series output	9
+  -1     TSR LAYER- ETSR(NITSR)- depth or layer#(-) of time series output	0
+
+8) Water level output	WLEVEL (v4.5 only)
+  ON   WLC- time series of water levels ON or OFF at all segments
+  1    WL FREQ- WLF- frequency of output in days
+  
+8) WITH OUTPUT- withdrawal output
+  ON    WDOC- withdrawal output ON or OFF
+  1     NWDO- # of withdrawal output dates
+  1     NIWDO- # of withdrawal output segments
+  wdo.csv    WDO FILE WDOFN withdrawal output file name prefix and suffix
+  1     WITH DAT- WDOD(NWDO)- start date of output in Julian days
+  0.1   WITH FREQ- WDOF(NWDO)- frequency of output days
+  #outflow  WITH SEG- IWDO(NIWDO)- segment number of withdrawal
+
+
+10) Check Constituent Output
+
+
+R Code File Input Requirements
+1) Water Elevation level
+2) Water body branch organization (option for new function?)
+3) Filenames for items
+  -SPR filename (.csv or .opt)
+	-bathymetry file
+	-wind sheltering file
+	-shade file
+	-fish habitat file (w2_habitat.npt)
+4) Model Year
+	
+
+
+#### input format checks ####
+NPT version of Bathy function relys on sections labed
+  Labels: DLX, WSEL, PHI0, FRICTC, Layer
+  Segment Labels: "egment" in each Segment width header
+  
+
+
+
+
+
+Output Types, Location, Dates
+
+1) vertical profiles
+nearest dam profile & center res profile
+Changed in "SPR" section along with dates
+Section:
+	SPR PLOT - spreadsheet output	SPR
+	SPRC- Specifies if information is written to the spreadsheet profile file, ON, ONV, or OFF	ON      
+	NSPR- # of dates	34
+	NISPR- # of segments	3
+	SPR DATE- SPRD(NSPR)  - starting date of output in Julian days	115.51
+	SPR FREQ- SPRF(NSPR) - output frequency- days	90
+	SPR SEG- ISPR(NISPR) - segment # of spreadsheet output	9
+
+2) surface water info (on the table)
+One file per segment/layer with dates IDed
+
+TSR PLOT- time series plot output	TSR
+TSRC- time series ON or OFF	ON      
+NTSR- # of time series dates	1
+NITSR- # of locations for the time series output	4
+TSR FILE TSRFN time series output file name prefix and suffix	tsr.csv                                                                 
+TSR DATE- TSRD(NTSR)- start date of output in Julian days	1
+TSR FREQ- TSRF(NTSR)- frequency of output in days	0.1
+TSR SEG- ITSR(NITSR)- segment number of time series output	9
+TSR LAYER- ETSR(NITSR)- depth or layer# of time series output	0
+
+
+3) Water level output
+Needed for minimum water level for FPV area calc
+
+	WLEVEL
+	ON
+
+	Water level output	WLEVEL
+	WLC- time series of water levels ON or OFF at all segments	OFF
+	WL FREQ- WLF- frequency of output in days	14
+ #### DIFFERENT FOR 4.22
+ 
+
+4) Water withdraw output
+Update sampling frequency
+Check "wdo.csv" for file type for output format
+
+	WITH OUTPUT- withdrawal output	WDO
+	WDOC- withdrawal output ON or OFF	ON      
+	NWDO- # of withdrawal output dates	1
+	NIWDO- # of withdrawal output segments	1
+	WDO FILE WDOFN withdrawal output file name prefix and suffix	wdo.csv                                                                 
+	WITH DAT- WDOD(NWDO)- start date of output in Julian days	1
+	WITH FREQ- WDOF(NWDO)- frequency of output days	0.1
+	WITH SEG- IWDO(NIWDO)- segment number of withdrawal	11
+
+5) Fish Habitat Requirements
+Naming/Levels for Coldwater/Warmwater typical species
+	Species: Rainbow Trout, Largemouth Bass, Smallmouth bass?
