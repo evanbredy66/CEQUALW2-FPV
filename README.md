@@ -7,4 +7,4 @@ R code was written in Rstudio and is the recommended application for this code.
 Questions about the data or script can be directed to Evan Bredeweg, PhD.
 
 Author: Evan M. Bredeweg, PhD
-Contact Info: evan.bredeweg@oregonstate.edu or evan.bredeweg@gmail.com
+Contact Info: evan.bredeweg@gmail.com
